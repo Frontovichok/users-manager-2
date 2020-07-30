@@ -4,12 +4,18 @@ const initialState = {
 	isSignedIn: false,
 	isLoading: false,
 	isFailed: false,
+	accessToken: '',
 }
 
 function authReducer(state = initialState, action) {
 	switch (action.type) {
 		case SIGN_IN_SUCCESS:
-			return { ...state, isSignedIn: false, isLoading: false }
+			return {
+				...state,
+				isSignedIn: true,
+				isLoading: false,
+				accessToken: action.payload,
+			}
 		case SIGN_IN_FAILED:
 			return { ...state, isSignedIn: false, isLoading: false, isFailed: true }
 		case SIGN_IN_LOADING:

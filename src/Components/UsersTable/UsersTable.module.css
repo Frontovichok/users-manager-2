@@ -1,0 +1,135 @@
+.tableContainer {
+	width: 1200px;
+	padding: 10px;
+	background-color: white;
+	margin: 50px 0;
+	display: inline-block;
+	border-radius: 10px;
+	box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+		0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+}
+.usersTable {
+	table-layout: fixed;
+	width: 100%;
+	border-spacing: 0;
+	border: 1px solid #eeeeee;
+	margin-bottom: 10px;
+}
+.usersTable > thead > tr > th {
+	background-color: #eeeeee;
+	padding: 15px;
+	text-align: left;
+}
+.usersTable > thead > tr > th:first-child {
+	padding-left: 30px;
+}
+.usersTable > tbody > tr > td {
+	padding: 15px;
+	border-bottom: 1px solid #eeeeee;
+	word-break: break-word;
+	text-align: left;
+}
+.usersTable > tbody > tr:hover {
+	background-color: aliceblue;
+}
+.usersTable > tbody > tr > td:first-child {
+	padding-left: 30px;
+}
+.usersTable > tbody > tr.loading > td {
+	text-align: center;
+}
+.usersTable > tbody > tr.loading:hover {
+	background-color: white;
+}
+.sortIcon {
+	color: grey;
+	transform: scale(1, -1);
+}
+.searchField {
+	width: 300px;
+	margin-bottom: 20px;
+}
+@media only screen and (max-width: 760px),
+	(min-device-width: 768px) and (max-device-width: 1024px) {
+	.tableContainer {
+		width: 80%;
+		min-width: 300px;
+		max-width: 450px;
+	}
+	.searchField {
+		width: 80%;
+	}
+
+	table,
+	thead,
+	tbody,
+	th,
+	td,
+	tr {
+		display: block;
+	}
+
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr {
+		margin: 0 0 1rem 0;
+	}
+	tr.loading {
+		margin: 0;
+	}
+
+	tr:nth-child(odd) {
+		background: #eeeeee;
+	}
+
+	td {
+		border: none;
+		position: relative;
+		padding-left: 50%;
+	}
+
+	td:before {
+		position: absolute;
+		top: 50%;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+		transform: translateY(-50%);
+	}
+	.usersTable > tbody > tr > td {
+		padding: 10px;
+		padding-left: 50%;
+		border-bottom: none;
+	}
+	.usersTable > tbody > tr > td:first-child {
+		padding-left: 50%;
+	}
+	.usersTable > tbody > tr.loading > td {
+		padding-left: 0;
+		text-align: center;
+	}
+	.usersTable > tbody > tr.loading > td:nth-of-type(1):before {
+		content: none;
+	}
+
+	td:nth-of-type(1):before {
+		content: 'Id';
+	}
+	td:nth-of-type(2):before {
+		content: 'Username';
+	}
+	td:nth-of-type(3):before {
+		content: 'First Name';
+	}
+	td:nth-of-type(4):before {
+		content: 'Last Name';
+	}
+	td:nth-of-type(5):before {
+		content: 'Modify';
+	}
+}
