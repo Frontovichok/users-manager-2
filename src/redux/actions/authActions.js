@@ -9,7 +9,7 @@ export const signIn = (username, password) => {
 	return async (dispatch) => {
 		dispatch(signInLoading())
 		const response = await authAPI.signIn(username, password)
-		if (!response.error) {
+		if (!response.isError) {
 			dispatch(signInSuccess(response.data.token))
 		} else {
 			dispatch(signInFailed())

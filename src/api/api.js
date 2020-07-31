@@ -6,21 +6,29 @@ const instance = axios.create({
 
 export const usersAPI = {
 	getUsers: async (accessToken) => {
-		const response = await instance.get('api/v1/users/', {
-			headers: {
-				Authorization: `Token ${accessToken}`,
-			},
-		})
-		return response
+		try {
+			const response = await instance.get('api/v1/users/', {
+				headers: {
+					Authorization: `Token ${accessToken}`,
+				},
+			})
+			return response
+		} catch (err) {
+			return { err, isError: true }
+		}
 	},
 }
 
 export const authAPI = {
 	signIn: async (username, password) => {
-		const response = await instance.post('api-token-auth/', {
-			username,
-			password,
-		})
-		return response
+		try {
+			const response = await instance.post('api-token-auth/', {
+				username,
+				password,
+			})
+			return response
+		} catch (err) {
+			return { err, isError: true }
+		}
 	},
 }

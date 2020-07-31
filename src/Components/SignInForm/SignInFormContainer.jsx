@@ -14,5 +14,6 @@ function SignInFormContainer(props) {
 const mapStateToProps = (state) => ({
 	isLoading: state.auth.isLoading,
 	isSignedIn: state.auth.isSignedIn,
+	isFailed: state.auth.isFailed,
 })
 export default connect(mapStateToProps, { signIn })(SignInFormContainer)

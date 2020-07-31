@@ -17,14 +17,14 @@
 }
 .usersTable > thead > tr > th {
 	background-color: #eeeeee;
-	padding: 15px;
+	padding: 10px;
 	text-align: left;
 }
 .usersTable > thead > tr > th:first-child {
 	padding-left: 30px;
 }
 .usersTable > tbody > tr > td {
-	padding: 15px;
+	padding: 3px;
 	border-bottom: 1px solid #eeeeee;
 	word-break: break-word;
 	text-align: left;
@@ -42,12 +42,14 @@
 	background-color: white;
 }
 .sortIcon {
-	color: grey;
 	transform: scale(1, -1);
 }
-.searchField {
-	width: 300px;
-	margin-bottom: 20px;
+.sortIconDESC {
+	transform: none;
+}
+.foundedUsers {
+	margin-top: 0;
+	color: #34459e;
 }
 @media only screen and (max-width: 760px),
 	(min-device-width: 768px) and (max-device-width: 1024px) {

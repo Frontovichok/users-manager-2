@@ -9,7 +9,7 @@ export const getUsers = (accessToken) => {
 	return async (dispatch) => {
 		dispatch(usersIsLoading())
 		const response = await usersAPI.getUsers(accessToken)
-		if (!response.error) {
+		if (!response.isError) {
 			dispatch(setUsers(response.data))
 		} else {
 			dispatch(usersLoadingFailed())

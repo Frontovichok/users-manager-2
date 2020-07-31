@@ -20,27 +20,48 @@ function sliceUsersByPage(users, usersPerPage, countPages) {
 	return slicedUsers
 }
 
+let getFilteredUsers = (users, searchQuery) => {
+	if (searchQuery === '') return users
+
+	return users.filter((user) =>
+		user.username.toLowerCase().includes(searchQuery.toLowerCase())
+	)
+}
+
+let getSortedUsers = (users, sortDirection) => {
+	if (sortDirection === '') return users
+
+	let ascSort = users.sort((a, b) => a.id - b.id)
+	let result = sortDirection === 'ASC' ? ascSort : [...ascSort].reverse()
+	return result
+}
+
 function UsersTable(props) {
 	const { users: initialUsers } = props
-	let [activePage, setPage] = useState(1)
-	let [sortedUsers, setSortedUsers] = useState([])
-	let [filteredUsers, setFilteredUsers] = useState([])
+	let [activePage, setActivePage] = useState(1)
 	let [searchQuery, setSearchQuery] = useState('')
-	let users = filteredUsers.length > 0 ? filteredUsers : initialUsers
+	let [sortDirection, setSortDirection] = useState('')
+	let users = initialUsers
+	users = getFilteredUsers([...users], searchQuery)
+	users = getSortedUsers([...users], sortDirection)
+
 	let usersPerPage = 10
 	let countPages = Math.ceil(users.length / usersPerPage)
 	let slicedUsers = sliceUsersByPage(users, usersPerPage, countPages)
 
-	let filterUsersByUsername = (query) => {
-		setSearchQuery(query)
-		if (query === '') {
-			setFilteredUsers([])
-		} else {
-			setFilteredUsers(
-				initialUsers.filter((user) =>
-					user.username.toLowerCase().includes(query.toLowerCase())
-				)
-			)
+	let switchSortDirection = () => {
+		switch (sortDirection) {
+			case '':
+				setSortDirection('ASC')
+				break
+			case 'ASC':
+				setSortDirection('DESC')
+				break
+			case 'DESC':
+				setSortDirection('')
+				break
+			default:
+				break
 		}
 	}
 
@@ -49,10 +70,15 @@ function UsersTable(props) {
 			<h2>Our users</h2>
 			<SearchForm
 				searchUsers={(query) => {
-					filterUsersByUsername(query)
+					if (query !== '') setActivePage(1)
+					setSearchQuery(query)
 				}}
 			/>
-			{searchQuery && `${filteredUsers.length} users found`}
+			{searchQuery && (
+				<p className={styles.foundedUsers}>
+					<b>{users.length}</b> users found
+				</p>
+			)}
 			<table className={styles.usersTable}>
 				<colgroup className={styles.colGroup}>
 					<col style={{ width: '10%' }} />
@@ -65,8 +91,18 @@ function UsersTable(props) {
 					<tr>
 						<th>
 							id
-							<IconButton>
-								<SortIcon fontSize="small" className={styles.sortIcon} />
+							<IconButton
+								color={sortDirection ? 'primary' : 'default'}
+								onClick={switchSortDirection}
+							>
+								<SortIcon
+									fontSize="small"
+									className={
+										sortDirection === 'DESC'
+											? styles.sortIconDESC
+											: styles.sortIcon
+									}
+								/>
 							</IconButton>
 						</th>
 						<th>Username</th>
@@ -112,7 +148,7 @@ function UsersTable(props) {
 				size="large"
 				page={activePage}
 				count={countPages}
-				handleChange={setPage}
+				handleChange={setActivePage}
 			/>
 		</div>
 	)

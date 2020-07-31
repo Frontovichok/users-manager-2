@@ -17,11 +17,12 @@
 .formTitle {
 	margin-top: 0;
 }
-/* desctop */
-@media (min-width: 1281px) {
+.badRequestError {
+	color: rgb(228, 74, 74);
 }
 /* mobile */
-@media (min-width: 320px) and (max-width: 480px) {
+@media only screen and (max-width: 760px),
+	(min-device-width: 768px) and (max-device-width: 1024px) {
 	.signInformContainer {
 		min-width: 250px;
 	}

@@ -5,13 +5,12 @@ import {
 	Button,
 	InputAdornment,
 	IconButton,
-	CircularProgress,
 } from '@material-ui/core'
 import Visibility from '@material-ui/icons/Visibility'
 import VisibilityOff from '@material-ui/icons/VisibilityOff'
 import styles from './SignInForm.module.css'
 
-function SignInForm({ signIn, isLoading }) {
+function SignInForm({ signIn, isLoading, isFailed }) {
 	const [showPassword, setPasswordVisibility] = useState(false)
 	const togglePasswordVisibility = () => setPasswordVisibility(!showPassword)
 	const { handleSubmit, register, errors } = useForm()
@@ -27,10 +26,10 @@ function SignInForm({ signIn, isLoading }) {
 						name="username"
 						label="username"
 						variant="outlined"
-						defaultValue="test_super"
+						defaultValue="test_super2"
 						fullWidth
 						inputRef={register({
-							required: 'this field is required!',
+							required: 'This field is required!',
 							validate: (value) => value !== 'admin' || 'Nice try!',
 						})}
 						{...(errors.username && {
@@ -48,7 +47,7 @@ function SignInForm({ signIn, isLoading }) {
 						fullWidth
 						type={showPassword ? 'text' : 'password'}
 						inputRef={register({
-							required: 'this field is required!',
+							required: 'This field is required!',
 							validate: (value) => value !== 'admin' || 'Nice try!',
 						})}
 						{...(errors.password && {
@@ -67,11 +66,14 @@ function SignInForm({ signIn, isLoading }) {
 									</IconButton>
 								</InputAdornment>
 							),
-							gg: <CircularProgress />,
 						}}
 					/>
 				</div>
-
+				{isFailed && (
+					<p className={styles.badRequestError}>
+						Request failed, try once more
+					</p>
+				)}
 				<Button
 					variant="contained"
 					color="primary"
